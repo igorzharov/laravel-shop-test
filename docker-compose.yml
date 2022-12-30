@@ -1,0 +1,30 @@
+version: "3.0"
+
+services:
+    nginx:
+        build:
+            context: docker/nginx
+        ports:
+            - "6615:80"
+        volumes:
+            - ./:/app
+        depends_on:
+            -   php-fpm
+    php-fpm:
+        build:
+            context: docker/php-fpm
+        volumes:
+            -   ./:/app
+    db:
+        image: mysql:8
+        ports:
+            - "6610:3306"
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: dbuser
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - db:/var/lib/mysql
+volumes:
+    db:
