@@ -8,6 +8,6 @@ class MainController extends Controller
 {
     public function __invoke()
     {
-        return view('adminlte.index');
+        return view('main.index');
     }
 }

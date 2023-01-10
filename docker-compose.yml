@@ -5,7 +5,7 @@ services:
         build:
             context: docker/nginx
         ports:
-            - "6615:80"
+            - "9915:80"
         volumes:
             - ./:/app
         depends_on:
@@ -18,7 +18,7 @@ services:
     db:
         image: mysql:8
         ports:
-            - "6610:3306"
+            - "9900:3306"
         environment:
             MYSQL_DATABASE: laravel
             MYSQL_USER: dbuser
@@ -26,5 +26,13 @@ services:
             MYSQL_ROOT_PASSWORD: root
         volumes:
             - db:/var/lib/mysql
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - 9910:80
+        environment:
+            - PMA_HOST=db
+            - UPLOAD_LIMIT=300M
 volumes:
     db:
